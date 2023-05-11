@@ -76,14 +76,14 @@
           - httpd
           - firewalld
         state: latest
-      #ignore_errors: true 
+      ignore_errors: true 
 
     - name: Apache enabled and running
       service:
         name: httpd
         enabled: true
         state: started
-      #ignore_errors: true
+      ignore_errors: true
       
     - name: Apache enabled and running
       service:
