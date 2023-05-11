@@ -5,9 +5,7 @@
   become: true
   vars:
     var1: 'TATYS'
-    paquetes: 
-      -  'httpd'
-      -  'firewalld'
+ 
 
   tasks:
 
@@ -74,20 +72,25 @@
 
     - name: Latest Apache and firewalld version installed
       yum:
-        name: "{{ item }}"
+        name: 
+          - httpd
+          - firewalld
         state: latest
-      loop:  
-        - httpd
-        - firewalld
-      ignore_errors: true 
+      #ignore_errors: true 
 
     - name: Apache enabled and running
       service:
-        name: "{{ item }}"
+        name: httpd
         enabled: true
         state: started
-      loop: "{{ paquetes }}"
-      ignore_errors: true
+      #ignore_errors: true
+      
+    - name: Apache enabled and running
+      service:
+        name: firewalld
+        enabled: true
+        state: started
+      #ignore_errors: true
 
 
     - name: firewalld permits http service
