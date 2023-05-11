@@ -1,0 +1,142 @@
+###########################EJERCICIO################################
+---
+- name: Homework
+  hosts: localhost # test
+  become: true
+  vars:
+    var1: 'TATYS'
+    paquetes: 
+      -  'httpd'
+      -  'firewalld'
+
+  tasks:
+
+#######TASK1
+
+    - name: Create a student user
+      user:
+        name: student
+        state: present
+        uid: "1500"
+        comment: "Tatiana"
+        password: student
+        #group:admin     
+
+#######TASK2
+
+    - name: Create a directory
+      file:     #ansible.builtin.file
+        path: /home/ciberseguridad/Documents/myplaybook
+        owner: student
+        group: student
+        mode: 644
+        state: directory
+
+#######TASK3
+
+    #- name: Create a archivo mytest
+    #  file:   
+    #    path: /home/ciberseguridad/Documents/myplaybook/mytest
+    #    state: touch
+                
+                
+    #- name: Content variable on mytest
+    #  command: echo 'El contenido es "{{ var1 }}"' > /home/ciberseguridad/Documents/myplaybook/mytest
+    
+    - name: Create a archivo mytest
+      copy:
+        dest: /home/ciberseguridad/Documents/myplaybook/mytest
+        content: 'La variable es "{{ var1 }}" '
+
+#######TASK4
+
+    #- name: Distritucion de Linux  
+    #  setup:
+    #    filter:
+    #      - "*distribution"
+    #  register: result
+
+
+    - name: Message of Distritucion de Linux
+      debug:
+        msg: "The operating system is {{ ansible_distribution }}"
+      register: result
+      when:  ansible_distribution == "RedHat"
+
+#######TASK12
+
+    - name: Enviar dato a direccion
+      copy:
+        dest: /tmp/distribution
+        content: "{{ result.msg }}"
+
+#######TASK5-6-7
+
+    - name: Latest Apache and firewalld version installed
+      yum:
+        name: "{{ item }}"
+        state: latest
+      loop:  
+        - httpd
+        - firewalld
+      ignore_errors: true 
+
+    - name: Apache enabled and running
+      service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop: "{{ paquetes }}"
+      ignore_errors: true
+
+
+    - name: firewalld permits http service
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+      ignore_errors: true
+
+#######8
+
+    - name: Check packages for updates
+      yum: 
+        list: "updates"
+      register: lista 
+      
+    - debug:
+       var: "{{ lista }}"
+
+    - name: Display packages
+      debug:
+        msg: "Found {{ lista.stdout_lines | length }} packages to be updated:\n\n{{ lista.stdout }}"
+          
+
+
+    
+#######TASK9
+
+    - name: Comando
+      command: uptime, cat /etc/resolv.conf, df -h
+      register: comando
+
+    - name: envio
+      copy:
+        dest: /tmp/evidencias
+        content: "{{ comando.stdout }}"
+
+#######TASK10
+
+    - name: Install updates using yum
+      yum:
+        name: '*'
+        state: latest
+        exclude: "httpd"
+      ignore_errors: true
+
+#######TASK11
+
+    - name: REboot
+      reboot:
+        reboot_timeout: 3600
