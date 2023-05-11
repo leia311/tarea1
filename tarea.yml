@@ -73,8 +73,8 @@
     - name: Latest Apache and firewalld version installed
       yum:
         name: 
-          - httpd
-          - firewalld
+          - 'httpd'
+          - 'firewalld'
         state: latest
       ignore_errors: true 
 
@@ -90,7 +90,7 @@
         name: firewalld
         enabled: true
         state: started
-      #ignore_errors: true
+      ignore_errors: true
 
 
     - name: firewalld permits http service
