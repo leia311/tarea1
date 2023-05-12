@@ -28,7 +28,7 @@
         
     - name: prueba    
       debug:      
-        var: {{ansible_distribution}} and {{ansible_distribution_version}}    
+        var: ansible_distribution_version   
         
          
     - name: print rhel version    
