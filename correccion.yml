@@ -24,7 +24,12 @@
     - name: copy index.html    
       copy:      
         src: index.html      
-        dest: /var/www/html/      
+        dest: /var/www/html/ 
+        
+     - name: distrubution    
+      debug:      
+        var: {{ansible_distribution}} and {{ansible_distribution_version}}    
+        
          
     - name: print rhel version    
       debug:      
