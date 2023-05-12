@@ -105,7 +105,7 @@
 
     - name: Check packages for updates
       yum: 
-        list: "updates"
+        list: updates
       register: lista 
       
     - debug:
@@ -113,15 +113,15 @@
 
     - name: Display packages
       debug:
-        msg: "Found {{ lista.stdout_lines | length }} packages to be updated:\n\n{{ lista.stdout }}"
-          
+     #   msg: "Found {{ lista.stdout_lines | length }} packages to be updated:\n\n{{ lista.stdout }}"
+        msg: "{{ lista.results | map(attribute='name') | list }}"
 
 
     
 #######TASK9
 
     - name: Comando
-      command: uptime, cat /etc/resolv.conf, df -h
+      command: uptime; cat /etc/resolv.conf; df -h
       register: comando
 
     - name: envio
