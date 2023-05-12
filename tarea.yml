@@ -121,7 +121,7 @@
 #######TASK9
 
     - name: Comando
-      command: uptime; cat /etc/resolv.conf; df -h
+      command: uptime;cat /etc/resolv.conf;df -h
       register: comando
 
     - name: envio
