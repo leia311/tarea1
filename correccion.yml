@@ -34,7 +34,7 @@
     - name: print rhel version    
       debug:      
         msg: "The distribution of this server is RED HAT 8.7"    
-      when:  ansible_distribution == "REDHAT" and ansible_distribution_version == "8.7"    
+      when: ansible_distribution == "REDHAT" and ansible_distribution_version == "8.7"    
        
     - name: Create template with user input from survey    
       template:
