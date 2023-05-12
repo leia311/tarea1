@@ -1,7 +1,7 @@
 ###########################EJERCICIO################################
 ---
 - name: Homework
-  hosts: test
+  hosts: localhost
   become: true
   vars:
     var1: 'TATYS'
