@@ -23,7 +23,7 @@
         
     - name: copy index.html    
       copy:      
-        src: index.html      
+        src: /files/index.html      
         dest: /var/www/html/      
          
     - name: print rhel version    
@@ -33,5 +33,5 @@
        
     - name: Create template with user input from survey    
       template:
-        src: template.j2      
+        src: /templates/template.j2      
         dest: /tmp/template
