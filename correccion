@@ -13,7 +13,7 @@
     - name: latest Apache version installed    
       yum:      
         name: httpd      
-        state: latest
+        state: latest
         
     - name: Apache enabled and running     
       service:      
@@ -21,17 +21,17 @@
         enabled: true      
         state: started      
         
-     - name: copy index.html    
-       copy:      
-         src: index.html      
-         dest: /var/www/html/      
+    - name: copy index.html    
+      copy:      
+        src: index.html      
+        dest: /var/www/html/      
          
-     - name: print rhel version    
-       debug:      
-         msg: "The distribution of this server is RED HAT 8.7"    
-       when: ansible_facts.distribution = "REDHAT" and ansible_facts.distribution-version = "8.7"    
+    - name: print rhel version    
+      debug:      
+        msg: "The distribution of this server is RED HAT 8.7"    
+      when: ansible_facts.distribution = "REDHAT" and ansible_facts.distribution-version = "8.7"    
        
-     - name: Create template with user input from survey    
-       template:
-         src: template.j2      
-         dest: /tmp/template
+    - name: Create template with user input from survey    
+      template:
+        src: template.j2      
+        dest: /tmp/template
