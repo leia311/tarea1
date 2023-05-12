@@ -26,7 +26,7 @@
         src: index.html      
         dest: /var/www/html/ 
         
-     - name: distrubution    
+    - name: prueba    
       debug:      
         var: {{ansible_distribution}} and {{ansible_distribution_version}}    
         
