@@ -26,4 +26,4 @@
       register: check_node_version
 
     - ansible.builtin.debug:
-      msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }} 
+        msg: Python Version is {{ check_python_version.stdout_lines[0] }} and NodeJS version is {{ check_node_version.stdout_lines[0] }} 
